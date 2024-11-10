@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple React-based weather application that allows users to get weather information for a specific city or their current location. The app fetches weather data from the Open-Meteo API and displays real-time weather conditions, hourly forecasts, and more.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Current weather data**: Displays current temperature, weather condition, and the time of the weather data.
+- **Hourly forecast**: Shows hourly temperature data for the next 12 hours.
+- **Location-based weather**: Automatically detects and fetches weather for the user's current location.
+- **Search for a city**: Allows users to search for weather in any city by name.
+- **Responsive design**: The app is designed to work on desktop and mobile devices.
 
-### `npm start`
+## Components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. `App`
+This is the main component that handles the state of the application, including weather data, location, and search functionality. It uses:
+- `SearchBar`: A component that allows the user to search for weather data by entering a city name.
+- `WeatherDisplay`: Displays the current weather information, including temperature and condition.
+- `HourlyForecast`: Shows the hourly temperature forecast for the next 12 hours.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. `SearchBar`
+A functional component with an input field for entering a city name. It uses the `setCity` function to update the city state and triggers a weather search when the form is submitted.
 
-### `npm test`
+### 3. `WeatherDisplay`
+Displays the current weather data, including:
+- Current temperature in Celsius.
+- Local time of the weather data.
+- Weather condition with corresponding icons.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 4. `HourlyForecast`
+Displays hourly temperature data for the next 12 hours. The data is fetched from the weather API and displayed in individual hourly blocks.
 
-### `npm run build`
+### 5. `weatherService.js`
+Contains the logic for interacting with external APIs:
+- `fetchWeatherData`: Fetches weather data from Open-Meteo API based on latitude and longitude.
+- `getCoordinatesFromCity`: Fetches latitude and longitude from the city name using OpenStreetMap’s Nominatim API.
+- `getCurrentLocation`: Uses the browser's geolocation API to fetch the current location of the user.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Node.js**: You should have Node.js installed on your machine.
+- **NPM/Yarn**: You can use either NPM or Yarn for package management.
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/weather-app.git
+   cd weather-app
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Install dependencies:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ```bash
+    npm install
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Start the application:
 
-## Learn More
+    ```bash
+    npm start
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Open your browser and go to `http://localhost:3000`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Folder Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **`src/`**: Main source directory containing React components and styles.
+  - **`components/`**:
+    - `HourlyForecast.js`: A component that renders hourly forecast details.
+    - `SearchBar.js`: A component for the search bar and search logic.
+    - `WeatherDisplay.js`: A component for the .
+  - **`services/`**:
+    - `WeatherService.js`: Contains the API calls.
+  - **`utils/`**:
+    - `gelocation.js`: Contains the location finder / navigator.
+  - **`App.js`**: The main component that contains the core logic for fetching weather and managing state.
+  - **`index.js`**: The entry point for rendering the app.
+  - **`App.css`**: Contains the custom styles for the app.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## How It Works
 
-### Making a Progressive Web App
+### Fetching Weather Data
+- When the app loads, it automatically fetches the user's current location using the browser's **Geolocation API** (`getCurrentLocation`).
+- Once the coordinates are obtained, the app fetches weather data using the `fetchWeatherData` function from the **Open-Meteo API**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### City Search
+- Users can search for weather information in any city by entering the city name into the search bar.
+- The `handleSearch` function converts the city name into latitude and longitude using the `getCoordinatesFromCity` function, and then fetches weather data using the retrieved coordinates.
 
-### Advanced Configuration
+### Hourly Forecast
+- The app displays hourly temperature data for the next 12 hours. It slices the first 12 hourly temperatures and displays them in individual hourly blocks.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Dynamic City Name
+- When weather data is fetched, the app dynamically displays the city name based on the retrieved coordinates. 
+- It also handles cases where the city name cannot be found (e.g., invalid coordinates or errors during reverse geocoding).
 
-### Deployment
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 1. Open-Meteo API (Weather data)
+- **Endpoint**: `https://api.open-meteo.com/v1/forecast`
+- **Parameters**:
+  - `latitude`: Latitude of the location.
+  - `longitude`: Longitude of the location.
+  - `hourly`: A comma-separated list of the hourly data to be fetched. (For example, `temperature_2m` for hourly temperature data).
+  
+  **Example API URL**:
+  ```bash
+  https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.405&hourly=temperature_2m
 
-### `npm run build` fails to minify
+### 2. OpenStreetMap Nominatim API (Geocoding)
+- **Endpoint**: `https://nominatim.openstreetmap.org/search`
+- **Parameters**:
+  - `q`: The city name.
+  - `format`: Set to `json` to return the result in JSON format.
+  
+  **Example API URL**:
+  ```bash
+  https://nominatim.openstreetmap.org/search?q=Berlin&format=json&limit=1
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 3. Reverse Geocoding (Get City Name from Coordinates)
+- **Endpoint**: `https://nominatim.openstreetmap.org/reverse`
+- **Parameters**:
+  - `lat`: Latitude.
+  - `lon`: Longitude.
+  - `format`: Set to `json` to return the result in JSON format.
+  
+  **Example API URL**:
+  ```bash
+  https://nominatim.openstreetmap.org/reverse?lat=52.52&lon=13.405&format=json
+
+## Styling
+
+The app uses basic CSS styles, which are included in the `index.css` and `App.css` files. You can customize the styles as needed.
+
+## Notes
+
+- The app uses **icons from React Icons** (e.g., `FaSun`, `FaCloud`, etc.) to represent different weather conditions.
+- **Error handling**: Proper error messages are displayed when:
+  - No weather data is available.
+  - The city entered by the user cannot be found.
+  - The browser does not support geolocation.
+
+## License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.

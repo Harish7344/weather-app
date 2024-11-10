@@ -1,38 +1,300 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(45deg, #6e7e91, #3a536d);
+  height: 100vh;
+  display: grid;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  color: #fff;
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.app {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  /* max-width: 450px; */
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffcb00;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 12px;
+  font-size: 1.2rem;
+  border: 2px solid #fff;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  width: 70%;
+  color: #333;
+}
+
+.search-bar button {
+  padding: 12px;
+  background-color: #ffcb00;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #ff9900;
+}
+
+.weather-container {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 15px;
+  border-radius: 10px;
+  animation: fadeInUp 0.7s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weather-info {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.weather-detail {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+  width: 45%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weather-detail:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.weather-detail h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #ffcb00;
+}
+
+.weather-detail p {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.weather-condition-icon {
+  font-size: 2.5rem;
+  color: #ffcb00;
+  margin-right: 10px;
+}
+
+.hourly-forecast {
+  margin-top: 30px;
+}
+
+.hourly-forecast h3 {
+  color: #ffcb00;
+  margin-bottom: 20px;
+}
+
+.hourly-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hourly-item {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  width: 30%;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hourly-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hourly-item p {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.loading,
+.error {
+  font-size: 1.5rem;
+  color: #ffcb00;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Added styles for weather icons */
+.weather-condition-icon {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+/* Search bar styling */
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.search-input {
+  padding: 12px;
+  font-size: 1.2rem;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  outline: none;
+  width: 70%;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.search-input:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+  border-color: #ffcb00;
+  margin-right: 20px;
+}
+
+.search-button {
+  padding: 12px 20px;
+  background-color: #ffcb00;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-left: 10px;
+}
+
+.search-button:hover {
+  background-color: #ff9900;
+  transform: scale(1.05);
+}
+
+.search-button:focus {
+  outline: none;
+}
+
+/* Optional: Add a subtle shadow to enhance the visual depth */
+.search-form input, .search-form button {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.search-form input:focus, .search-form button:focus {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling for City Name Display */
+.city-name {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffcb00;
+  margin-top: 20px; /* Adjusted space */
+  text-align: center;
+  transition: opacity 0.5s ease;
+  padding-bottom: 10px; /* Space between city name and search bar */
+}
+
+/* Optional Loading Effect */
+.city-name.loading {
+  opacity: 0.5; /* Dim the text while loading */
+}
+
+/* Optional: Add additional styling for when location or city is being fetched */
+.city-name::after {
+  /* content: "..."; */
+  font-weight: normal;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+/* Optional Loading Indicator */
+.loading {
+  font-size: 1.5rem;
+  color: #ffcb00;
+  font-weight: bold;
+  margin-top: 50px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Example of a loading animation */
+@keyframes pulse {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
   }
 }
